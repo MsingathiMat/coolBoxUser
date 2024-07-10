@@ -17,20 +17,40 @@ import PageSection from './AppDomain/Components/WebContainers/PageSection'
 import SpaceBetween from './AppDomain/Components/WebContainers/SpaceBetween'
 import MainNavigation from './ProblemDomain/components/MainNavigation'
 import Modal from './ProblemDomain/AppDeclarations/Modal'
+import Image from 'next/image'
 
 function Page() {
 
 
   return (
-   <PageView className=" bg-AppBg ">
+   <PageView className=" bg-AppBg overflow-hidden ">
 
 <PageSection center className='  w-full flex-col'>
 
 <MainNavigation/>
 
-<PageSection  >
+<PageSection  className=' px-[60px] CENTER  gap-8 mb-[100px]' >
 
-Just Another Hand
+<div className=' absolute -left-[350px] rotate-12  bg-AppPrimary w-[500px] h-[500px] rounded-[40px]'>
+
+
+</div>
+
+<Image  alt ='' src="/assets/phone.png" width={400} height={400} className='  top-[200px]'/>
+
+<div className='w-[400px]  text-center CENTER flex-col gap-6 '>
+
+  <h1 className=' text-2xl'>Cool <span className=' font-bold'>Box</span></h1>
+  <p className=''>Whether you&apos;re at a club, a wedding, or a private party, Cool<span className=' font-bold'>Box</span> puts the power of the playlist in your hands. </p>
+
+<Button className=' bg-AppPrimary hover:bg-AppSecondary px-6' >Get Started</Button>
+
+<div className=' absolute right-[0px] -bottom-[320px] rotate-12  bg-AppPrimary w-[500px] h-[500px] rounded-[40px]'>
+
+
+</div>
+</div>
+
 </PageSection>
 
 </PageSection>
