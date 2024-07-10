@@ -1,0 +1,1 @@
+Do not delete this folder because its content is a dependency of the AppDomain
