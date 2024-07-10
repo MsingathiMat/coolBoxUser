@@ -17,7 +17,7 @@ function Modal() {
   return (
     <div>
       <AlertDialog>
-  <AlertDialogTrigger   >Open</AlertDialogTrigger>
+  <AlertDialogTrigger   >Features</AlertDialogTrigger>
   <AlertDialogContent>
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

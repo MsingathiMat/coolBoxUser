@@ -9,8 +9,10 @@ type setState<P>=React.Dispatch<React.SetStateAction<P>>
 type FuncString = (()=>void) | `/${string}`
 type ListItems ={
 
-    itemLabel:string ,
+    itemLabel:string | React.ReactNode,
     callBack:FuncString,
     className?:string
+  
 }[]
 
+type StringNode = string | Extract.ReactNode

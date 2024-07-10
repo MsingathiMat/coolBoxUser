@@ -2,6 +2,7 @@
 //FOR THE APPDOMAIN
 
 import { Default  } from "./CorrFunctions";
+import Modal from "./Modal";
 
 
 
@@ -9,9 +10,10 @@ import { Default  } from "./CorrFunctions";
 const NavItems:ListItems =[
    
     {
-        itemLabel:"Features",
+        itemLabel:<Modal/>,
        callBack:()=>{},
-       className:" hover:text-AppPrimary"
+       className:" hover:text-AppPrimary",
+       
        
     },
     {

@@ -1,14 +1,18 @@
+import PageView from '@/app/AppDomain/Components/WebContainers/PageView'
 import LoginForm from '@/app/ProblemDomain/components/Forms/LoginForm'
 import RegisterForm from '@/app/ProblemDomain/components/Forms/RegisterForm'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { FaRegUser } from 'react-icons/fa'
 
 function Page() {
   return (
-    <div className=' FULLCENTER'>
+    <PageView className=' bg-AppBg'>
       
       <section className=' CENTER flex-col gap-11'>
+
+      <Image  alt ='' src="/assets/logoPrimary.svg" width={55} height={55}/>
       <RegisterForm/>
 
      <div className=' CENTER flex-row gap-2'>
@@ -18,7 +22,7 @@ function Page() {
      </div>
       </section>
     
-    </div>
+    </PageView>
   )
 }
 

@@ -1,15 +1,17 @@
 import PageSection from '@/app/AppDomain/Components/WebContainers/PageSection'
 import PageView from '@/app/AppDomain/Components/WebContainers/PageView'
 import LoginForm from '@/app/ProblemDomain/components/Forms/LoginForm'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { FaRegUser } from 'react-icons/fa'
 
 function Page() {
   return (
-    <PageView  >
+    <PageView  className=' bg-AppBg' >
       
       <section className=' CENTER flex-col gap-11'>
+      <Image  alt ='' src="/assets/logoPrimary.svg" width={55} height={55}/>
       <LoginForm/>
 
      <div className=' CENTER flex-row gap-2'>

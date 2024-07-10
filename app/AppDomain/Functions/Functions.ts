@@ -15,7 +15,11 @@ function isCallable(testerVariable:FuncString ) {
   return typeof testerVariable === 'function';
 }
 
-export { setBooleanTrue, setBooleanFalse, toggleBoolean,isCallable };
+function isString(testerVariable:StringNode ) {
+  return typeof testerVariable === 'string';
+}
+
+export {isString, setBooleanTrue, setBooleanFalse, toggleBoolean,isCallable };
 
 
 

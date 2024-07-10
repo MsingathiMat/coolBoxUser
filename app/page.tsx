@@ -23,18 +23,17 @@ function Page() {
 
 
   return (
-   <PageView className=" bg-AppBg overflow-hidden ">
+   <PageView className=" bg-AppBg relative overflow-clip  ">
 
 <PageSection center className='  w-full flex-col'>
 
 <MainNavigation/>
 
-<PageSection  className=' px-[60px] CENTER  gap-8 mb-[100px]' >
+<PageSection  className=' px-[60px] CENTER  gap-14 mb-[100px] ' >
 
-<div className=' absolute -left-[350px] rotate-12  bg-AppPrimary w-[500px] h-[500px] rounded-[40px]'>
+<div className=' absolute -left-[350px] rotate-12  bg-AppPrimary w-[500px] h-[500px] rounded-[60px]'/>
 
 
-</div>
 
 <Image  alt ='' src="/assets/phone.png" width={400} height={400} className='  top-[200px]'/>
 
@@ -45,12 +44,9 @@ function Page() {
 
 <Button className=' bg-AppPrimary hover:bg-AppSecondary px-6' >Get Started</Button>
 
-<div className=' absolute right-[0px] -bottom-[320px] rotate-12  bg-AppPrimary w-[500px] h-[500px] rounded-[40px]'>
-
 
 </div>
-</div>
-
+<div className=' absolute right-[50px] -bottom-[320px] rotate-12  bg-AppPrimary w-[700px] h-[500px] rounded-[60px]'/>
 </PageSection>
 
 </PageSection>

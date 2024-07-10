@@ -2,6 +2,7 @@ import NavList from '@/app/AppDomain/Components/WebContainers/NavList'
 import SpaceBetween from '@/app/AppDomain/Components/WebContainers/SpaceBetween'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 function MainNavigation() {
@@ -16,8 +17,8 @@ function MainNavigation() {
 
 <div className=' jah text-[25px] CENTER gap-4  '>
 
-   <span className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Login</span>
-   <span className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Signup</span>
+   <Link href="/login" className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Login</Link>
+   <Link href="/register"  className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Signup</Link>
 </div>
   </SpaceBetween>
   )
