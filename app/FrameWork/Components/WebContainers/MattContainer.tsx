@@ -5,12 +5,13 @@ import {
   Controller,
   FieldValues,
   Path,
+  PathValue,
   Resolver,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
 
-function MattContainer<P extends FieldValues>({
+function MattContainer<P extends FieldValues, V>({
   children,
   className,
   classLabel,
@@ -18,6 +19,7 @@ function MattContainer<P extends FieldValues>({
   watchFields,
   resolver,
   watchErrors,
+  valueList
 }: {
   children: React.ReactNode;
   getFormData: (data: P) => void;
@@ -26,20 +28,31 @@ function MattContainer<P extends FieldValues>({
   watchErrors?: boolean;
   className: string;
   classLabel:string
+  valueList?:{[key:string]:V}
 }) {
   const {
     register,
     watch,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({ mode: "all", resolver: resolver });
 
+  const vb={name:""}
+if(valueList){
+  Object.entries(valueList).forEach(([key , value]) => {
+    setValue(key as Path<P>, value as PathValue<P, Path<P>> );
+  });
+
+}
+ 
   const ChildrenToArray = React.Children.toArray(children) as ReactElement[];
 
   // const [Button, SetButton] = useState<React.ReactNode | null>(null);
   const TypedErrors = errors as any;
 
+  
   
   const handleOnSubmit: SubmitHandler<any> = (data) => {
     getFormData(data);

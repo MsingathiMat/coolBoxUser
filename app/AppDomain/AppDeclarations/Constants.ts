@@ -7,12 +7,13 @@ export enum UserRole {
   
 
   export enum QueryFunctions{
-    getEvents="getEvents",
-    getAllHotlist= "getAllHotlist",
-    getHotlistById="getHotlistById",
-    getAllArtist= "getAllArtist",
-    getGigGuidById="getGigGuidById",
-    getStats="getStats"
+    GetEvents="GetEvents",
+    GetAllHotlist= "GetAllHotlist",
+    GetHotlistById="GetHotlistById",
+    GetAllArtist= "GetAllArtist",
+    GetGigGuidById="GetGigGuidById",
+    GetStats="GetStats",
+    AddUser="AddUser"
   }
   
   type FunctionRegistryType = {
@@ -24,14 +25,10 @@ export enum UserRole {
     {
       [UserRole.Admin]: ["getStats"],
       [UserRole.Owner]: [
-        "getEvents",
-        "getAllHotlist",
-        "getHotlistById",
-        "getAllArtist",
-        "getGigGuidById",
+        "AddUser",
       ],
       [UserRole.User]: [],
-      [UserRole.SuperUser]: [],
+      [UserRole.SuperUser]: ["AddUser",],
     }
   ;
 
