@@ -1,6 +1,7 @@
 //ALL APP VARIABLES AND CONSTANTS, DO NOT DELETE THE CONTENT OD THIS FILE BECAUSE ITS A DEPENDENCT
 //FOR THE APPDOMAIN
 
+import { GetAllUsers } from "../Api/ReactQuery";
 import { Default  } from "./CorrFunctions";
 import Modal from "./Modal";
 
@@ -18,7 +19,7 @@ const NavItems:ListItems =[
     },
     {
         itemLabel:"FAQ",
-       callBack:()=>{},
+       callBack:()=>{alert(GetAllUsers())},
        className:" hover:text-AppPrimary"
        
     },
