@@ -1,5 +1,6 @@
-import NavList from '@/app/AppDomain/Components/WebContainers/NavList'
-import SpaceBetween from '@/app/AppDomain/Components/WebContainers/SpaceBetween'
+
+import NavList from '@/app/FrameWork/Components/WebContainers/NavList'
+import SpaceBetween from '@/app/FrameWork/Components/WebContainers/SpaceBetween'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'

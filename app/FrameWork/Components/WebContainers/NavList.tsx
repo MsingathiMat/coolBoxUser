@@ -1,6 +1,6 @@
 import React from 'react'
 import RenderList from './RenderList'
-import { NavItems } from '@/app/ProblemDomain/AppDeclarations/AppDeclarations'
+import { NavItems } from '@/app/AppDomain/AppDeclarations/AppDeclarations'
 
 function NavList() {
   return (
