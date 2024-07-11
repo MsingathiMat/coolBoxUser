@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Just_Another_Hand } from "next/font/google";
 import "./globals.css";
+import { JotaiProvider } from "./AppDomain/Store/JotaiAtoms/JotaiProvider";
 
 const jah = Just_Another_Hand({
   weight:'400',
@@ -23,7 +24,12 @@ export default function RootLayout({
  
   return (
     <html lang="en">
-      <body className={`${inter.className} ${jah.variable}` }>{children}</body>
+      <body className={`${inter.className} ${jah.variable}` }>
+        
+        <JotaiProvider>
+        {children}
+        </JotaiProvider>
+        </body>
     </html>
   );
 }

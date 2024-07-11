@@ -15,6 +15,8 @@ import { PulseLoader } from "react-spinners";
 import LoadingWrapper from "@/app/FrameWork/Components/LoadingWrapper";
 import { useInnter } from "@/app/FrameWork/Api/useInnter";
 import MattContainer from "@/app/FrameWork/Components/WebContainers/MattContainer";
+import { useAtom } from "jotai";
+import { userAtom } from "../../Store/JotaiAtoms/UserAtom";
 
 
 function LoginForm() {
@@ -24,14 +26,20 @@ function LoginForm() {
     password: z.string().min(1, "Password is required"),
   });
 
+  const [_,SetUser]= useAtom(userAtom)
   const FormResolver = zodResolver(FormSchema);
 
   type FormType = z.infer<typeof FormSchema>;
   const OnFormSubmit: SubmitHandler<FormType> = (data) => {
     const { read } = useInnter();
 
-    setIsLoading(true);
-
+    // setIsLoading(true);
+    SetUser({
+      userName:"Matthew",
+      surname:"Hlazo",
+      role:"Owner",
+      email:"matthew@gmail.com"
+    })
     const Rd = read<any>("https://api.codeddesign.org.za/users", {});
 
     Rd.then((data) => console.log(data));

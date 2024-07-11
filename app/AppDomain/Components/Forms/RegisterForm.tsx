@@ -19,11 +19,14 @@ import LoadingWrapper from "@/app/FrameWork/Components/LoadingWrapper";
 
 function RegisterForm() {
 
+ 
 
   const [isLoading, setIsLoading]= useState(false)
   const FormSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    password: z.string().min(1, "Password is required"),
+    userName: z.string().min(1, "Name is required"),
+    surname: z.string().min(1, "Name is required"),
+    email: z.string().min(1, "Password is required"),
+    
   });
 
  

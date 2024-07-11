@@ -1,15 +1,22 @@
-
+"use client"
 import LoginForm from "@/app/AppDomain/Components/Forms/LoginForm";
 import PageView from "@/app/FrameWork/Components/WebContainers/PageView";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaRegUser } from "react-icons/fa";
-
+import { useAtom } from 'jotai'
+import { userAtom } from "@/app/AppDomain/Store/JotaiAtoms/UserAtom";
 function Page() {
+
+  const [UserData,setUser] = useAtom(userAtom)
+
+  console.log(UserData)
   return (
     <PageView className=" bg-AppBg">
       <section className=" CENTER flex-col gap-11">
+
+        {UserData?.userName}
         <Image alt="" src="/assets/logoPrimary.svg" width={55} height={55} />
         <LoginForm />
 

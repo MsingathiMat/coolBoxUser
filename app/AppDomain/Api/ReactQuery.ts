@@ -9,14 +9,10 @@ import { FunctionRegistry } from "../AppDeclarations/Constants";
 
 const Authorizer =(Role:userRoles, FunctionName:QueryFuncType):boolean=>{
 
-
-console.log(FunctionRegistry[Role])
-console.log(FunctionName)
-
 return    FunctionRegistry[Role].includes(FunctionName)
 }  
 
-export const GetAllUsers =()=>{
+export const GetAllUsers =(UserRole:userRoles)=>{
 
 const FuncName = GetAllUsers.name
     if (Authorizer("SuperUser","getAllHotlist")){
