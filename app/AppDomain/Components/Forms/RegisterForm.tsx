@@ -40,7 +40,10 @@ const SavaUser =  AddUser()
     SavaUser.mutateAsync({ endPoint:"https://api.codeddesign.org.za/user",
       formData:data,reset:reset}).then((data)=>{
 
-console.log(data)
+
+        setIsLoading(false)
+      }).catch(()=>{
+
         setIsLoading(false)
       })
 

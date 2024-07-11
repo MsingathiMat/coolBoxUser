@@ -25,25 +25,36 @@ export const AddUser = <T, D>() => {
       formData: D;
       reset: ResetType<T>;
     }) => {
-      return CRUD.create(endPoint, formData);
+   return CRUD.create(endPoint, formData);
     },
 
     onSettled: async () => {
       await QueryClient.invalidateQueries({queryKey:["GetAllUsers"]})
       await QueryClient.invalidateQueries({queryKey:["GetNumberOfRows"]})
     },
-    onSuccess: async (_, variables, __) => {
-      variables.reset();
-      toast({
-          title: "SUCCESSFUL",
-          description: "User added Successfully ",
-        })
+    onSuccess: async (response  , variables, __) => {
+
+      const TypedResponse = response as QueryResponse;
+
+       if(TypedResponse.success){
+
+        variables.reset();
+        toast({
+            title: "SUCCESSFUL",
+            description: "User added Successfully ",
+          })
+
+       }else{
+
+        throw new Error(TypedResponse.message);
+       }
+    
     
     },
-    onError: () => {
+    onError: (error) => {
       toast({
           title: "ERROR",
-          description: "User not added",
+          description: error.message,
         })
 
   
