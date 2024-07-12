@@ -52,7 +52,7 @@ setIsLoading(true)
     
 
       SetUser(data.data)
-      Router.push("/")
+      Router.push("/app")
 
       setIsLoading(false)
      }else{

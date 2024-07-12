@@ -11,7 +11,7 @@ function Page() {
 
   const [UserData,setUser] = useAtom(userAtom)
 
-  console.log(UserData)
+
   return (
     <PageView className=" bg-AppBg">
       <section className=" CENTER flex-col gap-11">
