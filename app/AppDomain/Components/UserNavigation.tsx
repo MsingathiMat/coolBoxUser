@@ -9,6 +9,8 @@ import Link from 'next/link'
 import React from 'react'
 import { userAtom } from '../Store/JotaiAtoms/UserAtom'
 import { useRouter } from 'next/navigation'
+import AppMenuBar from '@/app/FrameWork/Components/Shadcn/AppMenuBar'
+import RenderNavigation from '@/app/FrameWork/Components/Shadcn/RenderNavigation'
 
 function UserNavigation() {
     const Router = useRouter()
@@ -26,6 +28,8 @@ function UserNavigation() {
   <Image  alt ='' src="/assets/logo.svg" width={30} height={30}/>
 <NavList/>
 </div>
+
+<RenderNavigation/>
 
 <div className=' text-[25px] CENTER gap-2  '>
 

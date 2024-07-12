@@ -16,7 +16,7 @@ function layout({children}:{children:Readonly<React.ReactNode>}) {
     </PageSection>
     
    
-    <PageSection center className='   w-full flex-col flex-1'>
+    <PageSection center className='   w-full flex-col flex-1 bg-slate-200'>
     
     {children}
     </PageSection>
