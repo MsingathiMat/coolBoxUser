@@ -1,4 +1,10 @@
 import { QueryFunctions, UserRole } from "../AppDeclarations/Constants"
+import { userSchema } from "../Schemas/zodSchemas"
+
+
+//BB table types
+
+type UserType = Zod.infer<typeof userSchema>
 
 type ApiQueryResponse={
     success:boolean,

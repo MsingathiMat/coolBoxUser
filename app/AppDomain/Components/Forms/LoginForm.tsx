@@ -17,9 +17,16 @@ import { useInnter } from "@/app/FrameWork/Api/useInnter";
 import MattContainer from "@/app/FrameWork/Components/WebContainers/MattContainer";
 import { useAtom } from "jotai";
 import { userAtom } from "../../Store/JotaiAtoms/UserAtom";
+import { GetUserByEmail } from "../../Api/ReactQuery";
+import { UserType } from "../../Types/Types";
 
 
 function LoginForm() {
+
+  const {read} = useInnter()
+  const [email,setEmail]=useState("")
+  const {refetch, data:LoginData}=   GetUserByEmail("User",email)
+
   const [isLoading, setIsLoading] = useState(false);
   const FormSchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -31,8 +38,16 @@ function LoginForm() {
 
   type FormType = z.infer<typeof FormSchema>;
   const OnFormSubmit: SubmitHandler<FormType> = (data) => {
-    const { read } = useInnter();
+   
 
+    read<UserType[]>("https://api.codeddesign.org.za/users",{email:data.name}).then((data)=>{
+
+      console.log(data[0].password)
+
+    }).catch((error)=>{
+
+console.log(error)
+    })
     // setIsLoading(true);
     SetUser({
       userName:"Matthew",
@@ -40,9 +55,7 @@ function LoginForm() {
       role:"Owner",
       email:"matthew@gmail.com"
     })
-    const Rd = read<any>("https://api.codeddesign.org.za/users", {});
-
-    Rd.then((data) => console.log(data));
+   
   };
 
   return (
