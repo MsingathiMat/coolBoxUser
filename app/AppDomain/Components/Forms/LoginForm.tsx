@@ -19,11 +19,16 @@ import { useAtom } from "jotai";
 import { userAtom } from "../../Store/JotaiAtoms/UserAtom";
 import { GetUserByEmail } from "../../Api/ReactQuery";
 import { UserType } from "../../Types/Types";
+import { create } from "domain";
+import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
+
 
 
 function LoginForm() {
 
-  const {read} = useInnter()
+  const Router = useRouter()
+  const {read,create} = useInnter()
   const [email,setEmail]=useState("")
   const {refetch, data:LoginData}=   GetUserByEmail("User",email)
 
@@ -39,22 +44,32 @@ function LoginForm() {
   type FormType = z.infer<typeof FormSchema>;
   const OnFormSubmit: SubmitHandler<FormType> = (data) => {
    
+setIsLoading(true)
+    create<{email:string,password:string},ApiResponse<UserType>>("https://api.codeddesign.org.za/authenticate",{email:data.name, password:data.password}).then((data)=>{
 
-    read<UserType[]>("https://api.codeddesign.org.za/users",{email:data.name}).then((data)=>{
+     if(data?.success){
 
-      console.log(data[0].password)
+    
+
+      SetUser(data.data)
+      Router.push("/")
+
+      setIsLoading(false)
+     }else{
+
+      toast({
+        title:"FAILED TO LOGIN",
+        description:"Please check your email or password"
+      })
+
+      setIsLoading(false)
+     }
 
     }).catch((error)=>{
 
 console.log(error)
     })
-    // setIsLoading(true);
-    SetUser({
-      userName:"Matthew",
-      surname:"Hlazo",
-      role:"Owner",
-      email:"matthew@gmail.com"
-    })
+   
    
   };
 

@@ -63,7 +63,7 @@ const SavaUser =  AddUser("SuperUser")
       classLabel=" "
       getFormData={OnFormSubmit}
       resolver={FormResolver}
-   valueList={{password:"",handle:"",mobile:"",role:UserRole.User}}
+   valueList={{password:"user",handle:"",mobile:"",role:UserRole.User}}
     >
       <Input
         type="text"
