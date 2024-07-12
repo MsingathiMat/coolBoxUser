@@ -5,12 +5,20 @@ import { UseFormReset } from "react-hook-form";
 import { useInnter } from "@/app/FrameWork/Api/useInnter";
 import { QueryFuncType, ResetType, userRoles } from "../Types/Types";
 import { FunctionRegistry } from "../AppDeclarations/Constants";
+import { error } from "console";
+import { exit } from "process";
 
 const Authorizer = (Role: userRoles, FunctionName: QueryFuncType): boolean => {
-  return FunctionRegistry[Role].includes(FunctionName);
+return FunctionRegistry[Role].includes(FunctionName);
+
+
+ 
 };
 
-export const AddUser = <T, D>() => {
+export const AddUser = <T, D>(UserRole:userRoles) => {
+ 
+
+  
   const QueryClient =useQueryClient()
   const { CRUD } = useInnter();
   const { toast } = useToast()
@@ -25,12 +33,19 @@ export const AddUser = <T, D>() => {
       formData: D;
       reset: ResetType<T>;
     }) => {
-   return CRUD.create(endPoint, formData);
+      if (!Authorizer(UserRole,"AddUser")){
+      
+        alert(`API CESS DENIED!! User Role  "${UserRole}" cannot access the method  "AddUser"`)
+        return 
+      }else{
+        return CRUD.create(endPoint, formData);
+      }
+  
     },
 
     onSettled: async () => {
-      await QueryClient.invalidateQueries({queryKey:["GetAllUsers"]})
-      await QueryClient.invalidateQueries({queryKey:["GetNumberOfRows"]})
+      // await QueryClient.invalidateQueries({queryKey:["GetAllUsers"]})
+      // await QueryClient.invalidateQueries({queryKey:["GetNumberOfRows"]})
     },
     onSuccess: async (response  , variables, __) => {
 

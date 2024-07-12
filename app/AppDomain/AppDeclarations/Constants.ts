@@ -23,12 +23,12 @@ export enum UserRole {
 
   export const FunctionRegistry: FunctionRegistryType = 
     {
-      [UserRole.Admin]: ["getStats"],
+      [UserRole.Admin]: [],
       [UserRole.Owner]: [
         "AddUser",
       ],
       [UserRole.User]: [],
-      [UserRole.SuperUser]: ["AddUser",],
+      [UserRole.SuperUser]: [],
     }
   ;
 

@@ -20,7 +20,7 @@ import { AddUser } from "../../Api/ReactQuery";
 function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const {reset}=useForm()
-const SavaUser =  AddUser()
+const SavaUser =  AddUser("SuperUser")
   const FormSchema = z.object({
     userName: z.string().min(1, 'User Name is required'),
     email: z.string().email('Invalid email address'),
