@@ -40,7 +40,7 @@ const NavItems:ListItems =[
        callBack:"/login",
        className:" hover:text-AppPrimary"
        
-    },
+    }
     
 ]
 

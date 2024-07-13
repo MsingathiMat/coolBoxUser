@@ -11,6 +11,7 @@ import { userAtom } from '../Store/JotaiAtoms/UserAtom'
 import { useRouter } from 'next/navigation'
 import AppMenuBar from '@/app/FrameWork/Components/Shadcn/AppMenuBar'
 import RenderNavigation from '@/app/FrameWork/Components/Shadcn/RenderNavigation'
+import SimpleBottomNavigation from '@/app/FrameWork/Components/MUI/AppMenu'
 
 function UserNavigation() {
     const Router = useRouter()
@@ -29,7 +30,7 @@ function UserNavigation() {
 <NavList/>
 </div>
 
-<RenderNavigation/>
+<SimpleBottomNavigation/>
 
 <div className=' text-[25px] CENTER gap-2  '>
 
