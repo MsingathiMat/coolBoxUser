@@ -1,9 +1,16 @@
+"use client"
 import UserNavigation from '@/app/AppDomain/Components/UserNavigation'
 import PageSection from '@/app/FrameWork/Components/WebContainers/PageSection'
 import PageView from '@/app/FrameWork/Components/WebContainers/PageView'
-import React from 'react'
+import { verifyJWT } from '@/app/FrameWork/lib/jwt'
+import { useRouter } from 'next/navigation'
 
-function layout({children}:{children:Readonly<React.ReactNode>}) {
+import React, { useEffect } from 'react'
+
+function Layout({children}:{children:Readonly<React.ReactNode>}) {
+
+
+
   return (
     <PageView className=" bg-AppBg relative overflow-clip flex-col lg:px-0  ">
  <UserNavigation/>
@@ -16,7 +23,7 @@ function layout({children}:{children:Readonly<React.ReactNode>}) {
     </PageSection>
     
    
-    <PageSection center className=' bg-AppMutedBg p-6   w-full flex-col flex-1 '>
+    <PageSection center className=' bg-AppMutedBg p-6   w-full flex-col flex-1 justify-start items-start '>
     
     {children}
     </PageSection>
@@ -32,4 +39,4 @@ left
   )
 }
 
-export default layout
+export default Layout

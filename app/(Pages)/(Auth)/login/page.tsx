@@ -9,14 +9,14 @@ import { useAtom } from 'jotai'
 import { userAtom } from "@/app/AppDomain/Store/JotaiAtoms/UserAtom";
 function Page() {
 
-  const [UserData,setUser] = useAtom(userAtom)
+
 
 
   return (
     <PageView className=" bg-AppBg">
       <section className=" CENTER flex-col gap-11">
 
-        {UserData?.userName}
+       
         <Image alt="" src="/assets/logoPrimary.svg" width={55} height={55} />
         <LoginForm />
 

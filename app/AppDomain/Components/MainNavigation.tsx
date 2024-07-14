@@ -19,7 +19,7 @@ function MainNavigation() {
 <div className=' jah text-[25px] CENTER gap-4  '>
 
    <Link href="/login" className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Login</Link>
-   <Link href="/register"  className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Signup</Link>
+   <Link href="/api/auth"  className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Signup</Link>
 </div>
   </SpaceBetween>
   )

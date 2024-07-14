@@ -32,6 +32,7 @@ function LoginForm() {
   const [email,setEmail]=useState("")
   const {refetch, data:LoginData}=   GetUserByEmail("User",email)
 
+
   const [isLoading, setIsLoading] = useState(false);
   const FormSchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -45,13 +46,21 @@ function LoginForm() {
   const OnFormSubmit: SubmitHandler<FormType> = (data) => {
    
 setIsLoading(true)
-    create<{email:string,password:string},ApiResponse<UserType>>("https://api.codeddesign.org.za/authenticate",{email:data.name, password:data.password}).then((data)=>{
+  
+      create<{ email:string,password:string},ApiResponse<{data:{status:string}}>>("api/login",{email:data.name, password:data.password}, true).then((data)=>{
 
+     
+
+console.log(data)
+  
      if(data?.success){
 
     
 
-      SetUser(data.data)
+     
+     
+    
+     
       Router.push("/app")
 
       setIsLoading(false)
