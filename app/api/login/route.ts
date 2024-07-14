@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       password,
     });
     const payload = apiResponse.data; // Assuming the API response contains user data
-    const token = await createJWT({matthew:"mzembe"});
+    const token = await createJWT(payload);
     const res = NextResponse.json({ success: true });
     res.cookies.set('token', token, {
       httpOnly: true,

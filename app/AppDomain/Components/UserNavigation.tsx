@@ -120,7 +120,7 @@ function UserNavigation() {
     const fetch =async()=>{
       await axios.get('/api/auth').then(data=>{
 
-        console.log(data)
+       
         setLoggedIn(false)
 
       }).catch(error=>{
@@ -136,7 +136,7 @@ function UserNavigation() {
     const handleLogout = async () => {
         try {
             await axios.post('/api/logout').then(data=>{
-              console.log(data)
+             
               setLoggedIn(true)
             })
           
@@ -156,7 +156,7 @@ function UserNavigation() {
                     <NavList />
                 </div>
                 <SimpleBottomNavigation />
-                <div className='text-[25px] CENTER gap-2'>
+                <div className='text-[25px] CENTER gap-2 w-[250px]'>
                     <IsAdmin>
                         <Button><Link href="/dashboard">Dashboard</Link></Button>
                     </IsAdmin>

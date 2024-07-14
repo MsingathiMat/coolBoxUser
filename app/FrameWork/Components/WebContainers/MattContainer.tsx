@@ -1,6 +1,6 @@
 
 import { cn } from "@/lib/utils";
-import React, { cloneElement, ReactElement, useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, cloneElement, ReactElement, useEffect, useMemo, useState } from "react";
 import {
   Controller,
   FieldValues,
@@ -68,7 +68,9 @@ if(valueList){
       const FieldName: keyof P = InputComponent.props.name;
       const ChangerMethod = InputComponent.props.ChangerMethod;
       const ChangedValue = InputComponent.props.ChangedValue;
-      const FormLabel = InputComponent.props.label;
+      const render = InputComponent.props.render;
+      const FormLabel = InputComponent.props.Label;
+
       return (
         <Controller
           key={index}
@@ -77,11 +79,22 @@ if(valueList){
           render={({ field }) => {
             return (
               <div className="h-fit m-2 flex flex-col gap-2">
-                {FormLabel ? (
-                  <p className="text-gray-500 ml-3">{FormLabel}</p>
+
+{FormLabel ? (
+                  <p className={cn("text-gray-500 ml-3 text-[12px]",classLabel)}>{FormLabel}</p>
+                ) : null}
+                {render ? (
+                  <p className="text-gray-500 ml-3">{ render(field.value)}</p>
                 ) : null}
                 {cloneElement(InputComponent, {
-                  [ChangerMethod]: field.onChange,
+                  [ChangerMethod]: (e: ChangeEvent<HTMLInputElement>) =>{
+
+                    field.onChange(e.target.files)
+                    if (e.target.files && e.target.files.length > 0) {
+                      ChangedValue(e.target.files[0].name)
+                    }
+                    
+                  } ,
                   [ChangedValue]: field.value,
                 })}
                 <p className="mt-1 text-red-500 text-[13px]">

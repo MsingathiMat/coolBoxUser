@@ -15,11 +15,11 @@ export async function  GET(req:NextResponse){
     const { payload } = await jwtVerify(token, secret);
 
     
-    return NextResponse.json({ success:true });
+    return NextResponse.json({ success:true,data:payload });
   } catch (error) {
     return NextResponse.json({ error: token }, { status: 401 });
   }
 
-// return NextResponse.json({token:token})
+
 
 }
