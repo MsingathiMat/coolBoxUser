@@ -180,6 +180,7 @@ export const useInnter = () => {
     read,
     update,
     remove,
+    upload,
     CRUD,
   };
 };

@@ -1,10 +1,10 @@
-"use client"
+"use client";
+import { format } from "date-fns"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,119 +13,256 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
-import { Textarea } from "@/components/ui/textarea"
-import FormLabelWrapper from "@/app/FrameWork/Components/WebContainers/FormLabelWrapper"
-import { ChangeEvent } from "react"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
+import FormLabelWrapper from "@/app/FrameWork/Components/WebContainers/FormLabelWrapper";
+import { ChangeEvent, useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Link from "next/link";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { toast } from "@/components/ui/use-toast";
+import { useInnter } from "@/app/FrameWork/Api/useInnter";
 
 const formSchema = z.object({
-    eventName: z.string().min(1, 'Event Name is required'),
-    description: z.string().min(1,"Description is required"),
-    lineUp: z.string(),
-    date: z.string().min(1,"Date is required"),
-    venue: z.string().min(1,"Venue is required"),
-    time: z.string().min(1,"time is required"),
-    eventType : z.string().min(1,"Type is required"),
-    poster:  z.instanceof(FileList).refine((files) => files.length > 0, {
-      message: 'File is required',
-    })
-})
+  eventName: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+
+  date:z.date(),
+  venue: z.string().min(1, "Venue is required"),
+  time: z.string().min(1, "Time is required"),
+  eventType: z.string().min(1, "Event Type is required"),
+  poster: z.instanceof(FileList).refine((files) => files.length > 0, {
+    message: "File is required",
+  }),
+});
 
 export function ShadForm() {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            eventName: "",
-        },
-      })
-    
-      function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
-      }
+
+  const {upload} = useInnter()
+
+  const [progress, setProgress] = useState(0)
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema)
+  });
+
+  // https://api.codeddesign.org.za/upload
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    const formData = new FormData();
+    const nextId = 23
+    if (nextId) {
+      const imageName = `${nextId.toString()}.jpg`;
+      formData.append("file", data.poster[0], imageName);
+
+      upload("https://api.codeddesign.org.za/upload",formData,setProgress)
+      const ImageLink = `https://api.codeddesign.org.za/uploads/${imageName}`;
+     
+    }
+  }
 
   return (
-    <Form {...form} > 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+       <div className=" CENTER h-full gap-4 relative items-start   ">
+
+<p className=" text-2xl">{progress}</p>
+        <div id="LEFT" className=" p-4  bg-slate-200 w-[400px] CENTER flex-col items-start gap-4">
         <FormField
           control={form.control}
-          name="eventName" 
+          name="eventName"
           render={({ field }) => (
-            <FormItem >
-            <FormLabelWrapper>
-                <FormLabel className=" FORMTEXT ">Event name </FormLabel>
-                <FormMessage  className=" FORMERROR"  />
-
-                </FormLabelWrapper>
+            <FormItem>
+              <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Event Name </FormLabel>
+                <FormMessage className=" FORMERROR" />
+              </FormLabelWrapper>
               <FormControl>
-                <Input  className=" FORMTEXT focus-visible:ring-0 focus-visible:ring-offset-0"  placeholder="shadcn" {...field} />
+                <Input
+                  className=" FORMTEXT focus-visible:ring-0 focus-visible:ring-offset-0"
+                  placeholder="shadcn"
+                  {...field}
+                />
               </FormControl>
-             
-         
             </FormItem>
           )}
         />
 
-
-<FormField
+        <FormField
           control={form.control}
-          name="description" 
+          name="venue"
           render={({ field }) => (
-            <FormItem >
-
-                <FormLabelWrapper>
-                <FormLabel className=" FORMTEXT ">Event name </FormLabel>
-                <FormMessage  className=" FORMERROR"  />
-
-                </FormLabelWrapper>
-           
+            <FormItem>
+              <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Venue </FormLabel>
+                <FormMessage className=" FORMERROR" />
+              </FormLabelWrapper>
               <FormControl>
-              
-                <Textarea 
+                <Input
+                  className=" FORMTEXT focus-visible:ring-0 focus-visible:ring-offset-0"
+                  placeholder="Venue"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Event Description </FormLabel>
+                <FormMessage className=" FORMERROR" />
+              </FormLabelWrapper>
+
+              <FormControl>
+                <Textarea
                   placeholder="Tell us a little bit about yourself"
                   className="resize-none FORMTEXT focus-visible:ring-0 focus-visible:ring-offset-0"
                   {...field}
                 />
               </FormControl>
-             
-             
+            </FormItem>
+          )}
+        />
+
+
+
+        </div>
+
+      <div id="RIGHT" className=" CENTER justify-start   flex-col items-start gap-4">
+
+      <FormField
+          control={form.control}
+          name="eventType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Event Type </FormLabel>
+                <FormMessage className=" FORMERROR" />
+              </FormLabelWrapper>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className=" w-[200px] ring-0 ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0">
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="m@example.com">m@example.com</SelectItem>
+                  <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                </SelectContent>
+              </Select>
+            
+           
             </FormItem>
           )}
         />
 
 <FormField
           control={form.control}
-          name="poster" 
-          render={({ field:{ value, onChange, ...fieldProps } }) => (
-            <FormItem >
-            <FormLabelWrapper>
-                <FormLabel className=" FORMTEXT ">Event name </FormLabel>
-                <FormMessage  className=" FORMERROR"  />
-
-                </FormLabelWrapper>
-              <FormControl>
-                <input
-                 {...fieldProps}
-                 onChange={(e: ChangeEvent<HTMLInputElement>) =>{
-
-                    onChange(e.target.files)
-                  }}
-                 
-                 
-                  accept="image/*"
-                type="file"  className=" FORMTEXT focus-visible:ring-0 focus-visible:ring-offset-0"  
-                placeholder="shadcn" />
-              </FormControl>
-             
-         
+          name="date"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+             <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Event Date </FormLabel>
+                <FormMessage className=" FORMERROR" />
+              </FormLabelWrapper>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[200px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date("1900-01-01")
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+           
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+
+        <FormField
+          control={form.control}
+          name="poster"
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem>
+              <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Event name </FormLabel>
+                <FormMessage className=" FORMERROR" />
+              </FormLabelWrapper>
+              <FormControl>
+                <input
+                  {...fieldProps}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    onChange(e.target.files);
+                  }}
+                  accept="image/*"
+                  type="file"
+                  className=" FORMTEXT hover:cursor-pointer"
+                  placeholder="shadcn"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="time"
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem>
+              <FormLabelWrapper>
+                <FormLabel className=" FORMTEXT ">Time </FormLabel>
+                <FormMessage className=" FORMERROR " />
+              </FormLabelWrapper>
+              <FormControl>
+                <Input {...fieldProps}
+                  type="time"
+                  onChange={onChange}
+                  className=" FORMTEXT w-30 hover:cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
+                  placeholder="Venue"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+      </div>
+       
+       </div>
+      <div className=" w-full CENTER h-[90px] bg-slate-200">
+
+      <Button className=" " type="submit">Submit</Button>
+      </div>
       </form>
     </Form>
-  )
+  );
 }

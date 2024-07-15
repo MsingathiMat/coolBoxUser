@@ -11,8 +11,9 @@ function page() {
   <div className=' flex-1 '>
 
 
-    <div className=' w-[300px] bg-slate-100 p-4 rounded-md'> 
+    <div className=' w-[600px] h-[640px] bg-slate-100 p-6 rounded-md '> 
 
+<h1 className=' pb-8 text-xl text-gray-700 font-bold'>Add Event</h1>
     <ShadForm/>
     </div>
   </div>
