@@ -17,6 +17,9 @@ import LoadingWrapper from "@/app/FrameWork/Components/LoadingWrapper";
 import { UserRole } from "../../AppDeclarations/Constants";
 import { AddUser } from "../../Api/ReactQuery";
 import { ImageMinus } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { AppDatePicker } from "../ShadCN/AppDatePicker";
+import { Calendar } from "@/components/ui/calendar";
 
 function AdEventForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,10 +29,10 @@ const SavaUser =  AddUser("SuperUser")
     eventName: z.string().min(1, 'Event Name is required'),
     description: z.string().min(1,"Description is required"),
     lineUp: z.string(),
-    date: z.string(),
-    venue: z.string(),
-    time: z.string(),
-    eventType : z.string(),
+    date: z.string().min(1,"Date is required"),
+    venue: z.string().min(1,"Venue is required"),
+    time: z.string().min(1,"time is required"),
+    eventType : z.string().min(1,"Type is required"),
     poster:  z.instanceof(FileList).refine((files) => files.length > 0, {
       message: 'File is required',
     })
@@ -42,15 +45,16 @@ const SavaUser =  AddUser("SuperUser")
     setIsLoading(true)
  
 
-    SavaUser.mutateAsync({ endPoint:"https://api.codeddesign.org.za/user",
-      formData:data,reset:reset}).then((data)=>{
+    console.log(data)
+    // SavaUser.mutateAsync({ endPoint:"https://api.codeddesign.org.za/user",
+    //   formData:data,reset:reset}).then((data)=>{
 
 
-        setIsLoading(false)
-      }).catch(()=>{
+    //     setIsLoading(false)
+    //   }).catch(()=>{
 
-        setIsLoading(false)
-      })
+    //     setIsLoading(false)
+    //   })
 
 
  
@@ -62,7 +66,10 @@ const SavaUser =  AddUser("SuperUser")
 
  
  
+// const DateWrapper = ({children}:{children:React.ReactNode})=>{
 
+//   return <AppDatePicker></AppDatePicker>
+// }
 
   const InputLabel =()=><label
     htmlFor="ImageInput"
@@ -82,8 +89,8 @@ const SavaUser =  AddUser("SuperUser")
  <h1>AddProject</h1>
 
     
-    <MattContainer
-      className=" h-[250px]  rounded-md "
+    <MattContainer  watchErrors
+      className=" h-fit  rounded-md "
       classLabel=" "
       getFormData={OnFormSubmit}
       resolver={FormResolver}
@@ -91,19 +98,26 @@ const SavaUser =  AddUser("SuperUser")
     >
       <Input
         type="text"
-        {...{ name: "userName", label: "Your Name" }}
+        {...{ name: "eventName", label: "Event Name" }}
         className="  focus-visible:ring-0 focus-visible:ring-offset-0"
       />
 
-    
-      <Input
-        type="email"
-        {...{ name: "email", label: "Your Email" }}
+
+<input {...{  name: "date", label: "Event Date" }} type="date"/>
+
+<Input
+        type="text"
+        {...{ name: "venue", label: "Event Venue" }}
         className="  focus-visible:ring-0 focus-visible:ring-offset-0"
       />
+
+<input {...{  name: "time", label: "Event Date" }} type="time"/>
+
+
+ <Textarea   {...{ name: "description", label: "Description" }} placeholder="Event description"   className=" resize-none  focus-visible:ring-0 focus-visible:ring-offset-0"  />
 
 <input
- {...{ name: "poster", render: InputLabel,Label:"Event Poser", controlled:true, ChangerMethod:"onChange", ChangedValue:setFile }}
+ {...{ name: "poster", render: InputLabel,Label:"Event Poser", file:true, ChangerMethod:"onChange", ChangedValue:setFile }}
               accept="image/*"
              hidden
               id="ImageInput"
@@ -114,7 +128,7 @@ const SavaUser =  AddUser("SuperUser")
 
       <LoadingWrapper {...{ type: "submit" }} isLoading={isLoading}>
         <Button type="submit" className="  bg-gray-700 hover:bg-AppSecondary">
-          Register
+          Save
         </Button>
       </LoadingWrapper>
     </MattContainer>
