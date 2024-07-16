@@ -63,7 +63,7 @@ export function ShadForm() {
       // Append other form data fields to formData
       Object.keys(data).forEach(key => {
         if (key !== 'poster') { // Skip the poster key since it's already appended
-          formData.append(key, data[key] );
+          formData.append(key, data[key] as any);
         }
       });
   
