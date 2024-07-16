@@ -14,16 +14,16 @@ import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
 
-export function AppCard() {
+export function AppCard({title,description, imageUrl }:{title:string,description:string, imageUrl:string }) {
   return (
   <div className=" relative">
       <Card className="w-[250px] h-auto ">
       <CardHeader>
-        <CardTitle className=" text-md">Create project</CardTitle>
-        <CardDescription  className=" text-[12px]">Deploy your new project in one-click.</CardDescription>
+        <CardTitle className=" text-md">{title}</CardTitle>
+        <CardDescription  className=" text-[12px]">{description}</CardDescription>
       </CardHeader>
       <CardContent>
-       <Image width={300} height={100} className="w-full h-[150px] rounded-sm  " alt=""  src="https://deep-house.co.za/wp-content/uploads/2022/12/3087081239_A_man_djing_at_night_under_the_stars_in_Africa__beautiful__digital_art__artstation__hyperrealistic__.png"/>
+       <Image width={300} height={100} className="w-full h-[150px] rounded-sm  " alt=""  src={imageUrl}/>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>

@@ -1,4 +1,4 @@
-import * as React from "react"
+
 
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -9,8 +9,27 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { AppCard } from "./AppCard"
+import { useInnter } from "@/app/FrameWork/Api/useInnter"
+import { useEffect, useState } from "react"
+import { EventType } from "react-hook-form"
+import { eventsType } from "../../Types/Types"
 
 export function AppSlider() {
+
+  const {read} = useInnter()
+
+  const [events, setEvents]=useState<eventsType[]>()
+  
+useEffect(()=>{
+
+  read<eventsType[]>("https://api.codeddesign.org.za/events").then((data)=>{
+    setEvents(data)
+  }).catch((error)=>{
+
+console.log(error)
+  })
+})
+
   return (
     <Carousel
       opts={{
@@ -19,10 +38,10 @@ export function AppSlider() {
       className="w-full "
     >
       <CarouselContent>
-        {Array.from({ length: 8 }).map((_, index) => (
+        {events?.map((event, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <div className=" p-4">
-            <AppCard/>
+            <AppCard imageUrl={event.posterUrl} title={event.eventName} description={event.description}/>
             </div>
           </CarouselItem>
         ))}

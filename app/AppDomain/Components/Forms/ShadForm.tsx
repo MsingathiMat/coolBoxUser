@@ -52,6 +52,7 @@ export function ShadForm() {
 
   // https://api.codeddesign.org.za/upload
 
+  type FormType = z.infer<typeof formSchema>
   function onSubmit(data: z.infer<typeof formSchema>) {
     const formData = new FormData();
     const nextId = 2;
@@ -61,9 +62,9 @@ export function ShadForm() {
       formData.append("poster", data.poster[0], imageName);
   
       // Append other form data fields to formData
-      Object.keys(data).forEach(key => {
+      (Object.keys(data) as (keyof FormType)[]).forEach(key => {
         if (key !== 'poster') { // Skip the poster key since it's already appended
-          formData.append(key, data[key] as any);
+          formData.append(key, data[key].toString());
         }
       });
   

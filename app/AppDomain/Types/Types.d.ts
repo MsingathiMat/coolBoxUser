@@ -26,6 +26,18 @@ type ApiQueryResponse={
     imageUrl: string;
 }>
 
+type eventsType ={
+  eventName: string;
+  description: string;
+  date: string;
+  venue: string;
+  time: string;
+  userId: number;
+  eventType: string;
+  posterUrl: string;
+  
+}
+
 type ResetType<T> = UseFormReset<T>
 
 type QueryFuncType = keyof typeof QueryFunctions

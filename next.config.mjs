@@ -5,7 +5,7 @@ const nextConfig = {
         remotePatterns: [
           {
             protocol: 'https',
-            hostname: 'deep-house.co.za',
+            hostname: 'api.codeddesign.org.za',
           
           },
         ],
