@@ -1,6 +1,7 @@
 
 import { cn } from "@/lib/utils";
-import React, { cloneElement, ReactElement, useEffect, useMemo, useState } from "react";
+import { Calendar } from "lucide-react";
+import React, { ChangeEvent, cloneElement, ReactElement, useEffect, useMemo, useState } from "react";
 import {
   Controller,
   FieldValues,
@@ -10,6 +11,19 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+
+
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+ 
+
+import { Button as DateButton } from "@/components/ui/button"
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 function MattContainer<P extends FieldValues, V>({
   children,
@@ -64,11 +78,15 @@ if(valueList){
   );
 
   const group = ChildrenToArray.map((InputComponent, index) => {
-    if (InputComponent.props.controlled) {
+    if (InputComponent.props.file ) {
+
+
       const FieldName: keyof P = InputComponent.props.name;
       const ChangerMethod = InputComponent.props.ChangerMethod;
       const ChangedValue = InputComponent.props.ChangedValue;
-      const FormLabel = InputComponent.props.label;
+      const render = InputComponent.props.render;
+      const FormLabel = InputComponent.props.Label;
+
       return (
         <Controller
           key={index}
@@ -77,11 +95,22 @@ if(valueList){
           render={({ field }) => {
             return (
               <div className="h-fit m-2 flex flex-col gap-2">
-                {FormLabel ? (
-                  <p className="text-gray-500 ml-3">{FormLabel}</p>
+
+{FormLabel ? (
+                  <p className={cn("text-gray-500 ml-3 text-[12px]",classLabel)}>{FormLabel}</p>
+                ) : null}
+                {render ? (
+                  <p className="text-gray-500 ml-3">{ render(field.value)}</p>
                 ) : null}
                 {cloneElement(InputComponent, {
-                  [ChangerMethod]: field.onChange,
+                  [ChangerMethod]: (e: ChangeEvent<HTMLInputElement>) =>{
+
+                    field.onChange(e.target.files)
+                    if (e.target.files && e.target.files.length > 0) {
+                      ChangedValue(e.target.files[0].name)
+                    }
+                    
+                  } ,
                   [ChangedValue]: field.value,
                 })}
                 <p className="mt-1 text-red-500 text-[13px]">
@@ -92,7 +121,48 @@ if(valueList){
           }}
         />
       );
-    } else {
+    }else if(InputComponent.props.date){
+
+
+
+
+      
+      const FieldName: keyof P = InputComponent.props.name;
+      const ChangerMethod = InputComponent.props.ChangerMethod;
+      const ChangedValue = InputComponent.props.ChangedValue;
+      const render = InputComponent.props.render;
+      const FormLabel = InputComponent.props.Label;
+      const Wrapper = InputComponent.props.wrapper;
+      return (
+        <Controller
+          key={index}
+          name={FieldName as Path<P>}
+          control={control}
+          render={({ field }) => {
+
+            const CLONED =  cloneElement(InputComponent, {
+              [ChangerMethod]: field.onChange ,
+            
+            })
+            return (
+              <div className="h-fit m-2 flex flex-col gap-2">
+
+{FormLabel ? (
+                  <p className={cn("text-gray-500 ml-3 text-[12px]",classLabel)}>{FormLabel}</p>
+                ) : null}
+              
+                {CLONED}
+     
+              
+                <p className="mt-1 text-red-500 text-[13px]">
+                  {TypedErrors[FieldName]?.message}
+                </p>
+              </div>
+            );
+          }}
+        />
+      );
+    }else {
       const FieldName: keyof P = InputComponent.props.name;
       const FormLabel = InputComponent.props.label ? InputComponent.props.label : null;
       const isSubmit = InputComponent.props.type ? InputComponent.props.type === "submit" : false;

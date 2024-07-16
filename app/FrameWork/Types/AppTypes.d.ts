@@ -15,4 +15,8 @@ type ListItems ={
   
 }[]
 
+
+type QueryResponse= {success: boolean, message: string}
 type StringNode = string | Extract.ReactNode
+
+type ApiResponse<P> = {success:boolean, message:string,data:P}

@@ -23,6 +23,7 @@ const config = {
         AppSecondary:"#CA0F44",
         ApppTertiary:"#B0156E",
         AppBg:"#F2F1E7",
+        AppMutedBg:"#eaeae3",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

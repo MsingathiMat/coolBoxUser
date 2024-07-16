@@ -15,12 +15,12 @@ export const useInnter = () => {
   // Function to handle POST requests (Create)
   type responseData<T> = T; // Define responseData as generic
 
-  const create = async <T,>(
+  const create = async <T,D>(
     endPoint: string,
     data: T,
     useFetch?: boolean
-  ): Promise<responseData<T> | null> => {
-    let results: responseData<T> | null = null;
+  ): Promise<responseData<D> | null> => {
+    let results: responseData<D> | null = null;
 
     if (useFetch) {
       try {
@@ -31,13 +31,13 @@ export const useInnter = () => {
           },
           body: JSON.stringify(data),
         });
-        results = (await response.json()) as responseData<T>;
+        results = (await response.json()) as responseData<D>;
       } catch (error) {
         results = null; // Handle error if necessary
       }
     } else {
       try {
-        const response: AxiosResponse<responseData<T>> = await axios.post(
+        const response: AxiosResponse<responseData<D>> = await axios.post(
           endPoint,
           data
         );

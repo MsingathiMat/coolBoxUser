@@ -92,6 +92,7 @@
       @apply focus-visible:ring-0 focus-visible:ring-offset-0;
     }
 
+  
     
   }
 
@@ -106,4 +107,15 @@
 
     height:32px;
     border: solid rgb(189, 187, 187) 1px;
+  }
+
+  .FORMTEXT{
+
+   font-size: 12px!important;
+   color: rgb(82, 82, 82);
+  }
+
+  .FORMERROR{
+    font-size: 12px;
+    color: rgb(220, 21, 21);
   }

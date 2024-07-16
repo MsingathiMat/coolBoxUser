@@ -1,17 +1,12 @@
 // src/atoms/userAtoms.ts
 import { atom } from 'jotai';
-import { userRoles } from '../../Types/Types';
-
- type User ={
-  userName: string;
-  surname: string;
-  email: string;
-  role: userRoles | null;
-}
+import { userRoles, UserType } from '../../Types/Types';
 
 
-type UserRegister = Omit<User,'role'>
+
+
+type UserRegister = Omit<UserType,'role'>
 
 export const isLoggedInAtom = atom(false);
 
-export const userAtom = atom<User | null>(null);
+export const userAtom = atom<UserType | null>(null);
