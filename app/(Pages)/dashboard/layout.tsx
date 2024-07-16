@@ -1,4 +1,5 @@
 "use client"
+import DesktopNav from '@/app/AppDomain/Components/DesktopNav'
 import { userAtom } from '@/app/AppDomain/Store/JotaiAtoms/UserAtom'
 import LoadingWrapper from '@/app/FrameWork/Components/LoadingWrapper'
 import PageView from '@/app/FrameWork/Components/WebContainers/PageView'
@@ -44,12 +45,22 @@ function Layout({children}:{children:Readonly<React.ReactNode>}) {
 
   return (
     
-    <PageView className=" bg-AppBg relative overflow-clip flex-col sm:px-0 lg:px-0 xl:px-0 2xl:px-0    ">
+    <PageView className=" bg-AppBg relative overflow-clip  flex-col sm:px-0 lg:px-0 xl:px-0 2xl:px-0    ">
 
 
 <LoadingWrapper isLoading={loggedIn} >
 
-{children}
+<div className=' CENTER w-full h-full'>
+  <DesktopNav/>
+
+  <div className=' flex-1 CENTER h-full w-full '>
+
+  {children}
+ 
+  </div>
+    </div>
+
+
 
 </LoadingWrapper>
     </PageView>

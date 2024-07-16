@@ -41,7 +41,7 @@ function DesktopNav() {
 
  
 
-<Link href='/'>
+<Link href='/dashboard'>
 
 
 <div className='flex relative group '>
@@ -57,18 +57,18 @@ function DesktopNav() {
  </div>
 </Link>
 
- <Link href="">
+ <Link href="/dashboard/orders">
  <div className='flex relative group '>
 <div className='flex hover:cursor-pointer hover:bg-gray-200 h-11 w-11 CENTER rounded-lg'>
 
 <FaUserGroup  className={cn(' text-[#4A4B4B]',Path=="/users"?" text-purple-500":" "   )} size={28} />
 
 </div>
-<label className='left-10 opacity-0 transition-all duration-500 group-hover:opacity-100  group-hover:left-[68px]    text-sm rounded-lg CENTER bg-black absolute top-2  text-white w-auto pl-3 h-8 pr-3 z-40'>Users</label>
+<label className='left-10 opacity-0 transition-all duration-500 group-hover:opacity-100  group-hover:left-[68px]    text-sm rounded-lg CENTER bg-black absolute top-2  text-white w-auto pl-3 h-8 pr-3 z-40'>Orders</label>
  </div></Link>
  
 
- <Link href="">
+ <Link href="/dashboard/addEvent">
  
  <div className='flex relative group '>
 <div className='flex hover:cursor-pointer hover:bg-gray-200 h-11 w-11 CENTER rounded-lg'>
@@ -76,7 +76,7 @@ function DesktopNav() {
 <PiChatsFill  className={cn(' text-[#4A4B4B]',Path=="/hotlists"?" text-purple-500":" "   )} size={28}/>
 
 </div>
-<label className='left-10 opacity-0 transition-all duration-500 group-hover:opacity-100  group-hover:left-[68px]    text-sm rounded-lg CENTER bg-black absolute top-2  text-white w-auto pl-3 h-8 pr-3 z-40'>Hotlists</label>
+<label className='left-10 opacity-0 transition-all duration-500 group-hover:opacity-100  group-hover:left-[68px]    text-sm rounded-lg CENTER bg-black absolute top-2  text-white w-auto pl-3 h-8 pr-3 z-40'> Events</label>
  </div >
  </Link>
 
@@ -84,7 +84,7 @@ function DesktopNav() {
 
 
 
-<Link href="/dashboard/activity">
+<Link href="">
 <div className='flex relative group '>
 <div className='flex hover:cursor-pointer hover:bg-gray-200 h-11 w-11 CENTER rounded-lg'>
 
