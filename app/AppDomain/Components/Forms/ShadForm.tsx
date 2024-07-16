@@ -34,6 +34,7 @@ const formSchema = z.object({
   date:z.date(),
   venue: z.string().min(1, "Venue is required"),
   time: z.string().min(1, "Time is required"),
+  userId: z.number(),
   eventType: z.string().min(1, "Event Type is required"),
   poster: z.instanceof(FileList).refine((files) => files.length > 0, {
     message: "File is required",
@@ -53,16 +54,32 @@ export function ShadForm() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     const formData = new FormData();
-    const nextId = 23
-    if (nextId) {
-      const imageName = `${nextId.toString()}.jpg`;
-      formData.append("file", data.poster[0], imageName);
-
-      upload("https://api.codeddesign.org.za/upload",formData,setProgress)
-      const ImageLink = `https://api.codeddesign.org.za/uploads/${imageName}`;
+    const nextId = 2;
      
+    try {
+      const imageName = `${nextId.toString()}.jpg`;
+      formData.append("poster", data.poster[0], imageName);
+  
+      // Append other form data fields to formData
+      Object.keys(data).forEach(key => {
+        if (key !== 'poster') { // Skip the poster key since it's already appended
+          formData.append(key, data[key] );
+        }
+      });
+  
+      upload("https://api.codeddesign.org.za/uploaddata", formData, setProgress).then((resp) => {
+        console.log(resp);
+      }).catch((rs) => {
+        console.log(rs);
+      });
+   
+    } catch (error) {
+      console.log(error);
     }
   }
+  
+
+  form.setValue("userId",2)
 
   return (
     <Form {...form}>
