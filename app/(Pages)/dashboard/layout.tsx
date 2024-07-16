@@ -44,7 +44,7 @@ function Layout({children}:{children:Readonly<React.ReactNode>}) {
 
   return (
     
-    <PageView className=" bg-AppBg relative overflow-clip flex-col lg:px-0  ">
+    <PageView className=" bg-AppBg relative overflow-clip flex-col sm:px-0 lg:px-0 xl:px-0 2xl:px-0    ">
 
 
 <LoadingWrapper isLoading={loggedIn} >

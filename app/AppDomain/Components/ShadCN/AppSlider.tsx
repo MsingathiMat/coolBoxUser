@@ -28,7 +28,7 @@ useEffect(()=>{
 
 console.log(error)
   })
-})
+},[])
 
   return (
     <Carousel
@@ -41,7 +41,7 @@ console.log(error)
         {events?.map((event, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <div className=" p-4">
-            <AppCard imageUrl={event.posterUrl} title={event.eventName} description={event.description}/>
+            <AppCard date={event.date} time={event.time} EventName={event.eventName} PosterUrl={event.posterUrl} description={event.description}/>
             </div>
           </CarouselItem>
         ))}

@@ -8,7 +8,7 @@ function page() {
     <div className=' CENTER w-full h-full'>
   <DesktopNav/>
 
-  <div className=' flex-1 '>
+  <div className=' flex-1 CENTER '>
 
 
     <div className=' w-[600px] bg-slate-100 p-4 rounded-md'> 

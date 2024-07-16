@@ -26,6 +26,7 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { toast } from "@/components/ui/use-toast";
 import { useInnter } from "@/app/FrameWork/Api/useInnter";
+import { Progress } from "@/components/ui/progress";
 
 const formSchema = z.object({
   eventName: z.string().min(1, "Name is required"),
@@ -57,16 +58,23 @@ export function ShadForm() {
     const formData = new FormData();
     const nextId = 2;
      
+
+  
+  
     try {
       const imageName = `${nextId.toString()}.jpg`;
       formData.append("poster", data.poster[0], imageName);
-  
+     
+
+      
       // Append other form data fields to formData
       (Object.keys(data) as (keyof FormType)[]).forEach(key => {
-        if (key !== 'poster') { // Skip the poster key since it's already appended
+        if (key !== 'poster' && key !== 'date') { // Skip the poster key since it's already appended
           formData.append(key, data[key].toString());
         }
       });
+
+      formData.append("date", format(data.date, "PPP").toString());
   
       upload("https://api.codeddesign.org.za/uploaddata", formData, setProgress).then((resp) => {
         console.log(resp);
@@ -87,7 +95,7 @@ export function ShadForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
        <div className=" CENTER h-full gap-4 relative items-start   ">
 
-<p className=" text-2xl">{progress}</p>
+
         <div id="LEFT" className=" p-4  bg-slate-200 w-[400px] CENTER flex-col items-start gap-4">
         <FormField
           control={form.control}
@@ -252,6 +260,8 @@ export function ShadForm() {
             </FormItem>
           )}
         />
+
+<Progress bgColor=" bg-AppPrimary"  className=" h-[5px] bg-slate-200" value={progress} />
 
         <FormField
           control={form.control}
