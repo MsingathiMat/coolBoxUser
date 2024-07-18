@@ -8,7 +8,7 @@ import React from 'react'
 
 function MainNavigation() {
   return (
-    <SpaceBetween className=' w-full  h-[120px] ' >
+    <SpaceBetween className=' w-full  h-[120px]   ' >
 
 <div className=' CENTER flex-row gap-4 text-sm'>
 
@@ -16,7 +16,7 @@ function MainNavigation() {
 <NavList/>
 </div>
 
-<div className=' jah text-[25px] CENTER gap-4  '>
+<div className=' jah text-[25px] CENTER gap-4    '>
 
    <Link href="/login" className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Login</Link>
    <Link href="/register"  className=' duration-300 hover:cursor-pointer hover:text-AppPrimary hover:text-[32px]'>Signup</Link>

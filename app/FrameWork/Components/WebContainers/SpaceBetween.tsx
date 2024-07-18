@@ -3,7 +3,7 @@ import React from 'react'
 
 function SpaceBetween({children, className}:ChildrenClass) {
   return (
-    <div className= {cn(" CENTER justify-between ", className)}>
+    <div className= {cn(" CENTER !justify-between   ",className)}>
       
       {children}
     </div>

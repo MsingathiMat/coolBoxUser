@@ -74,14 +74,7 @@
 
     }
 
-    .jah{
-
-      font-family: var(--jah)
-    }
-
-    .CENTER {
-      @apply flex justify-center items-center;
-    }
+  
 
     .FULLCENTER{
 @apply CENTER w-screen h-screen
@@ -94,6 +87,16 @@
 
   
     
+  }
+
+
+  .jah{
+
+    font-family: var(--jah)
+  }
+
+  .CENTER {
+    @apply flex justify-center items-center;
   }
 
   .BUTTON{

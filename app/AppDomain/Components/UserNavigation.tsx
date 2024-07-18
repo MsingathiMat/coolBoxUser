@@ -150,7 +150,7 @@ function UserNavigation() {
 
     return (
         <LoadingWrapper isLoading={loggedIn}>
-            <SpaceBetween className='w-full h-[80px] bg-slate-50 px-8' >
+            <SpaceBetween className='w-full h-[80px]  bg-slate-50 px-8 ' >
                 <div className='CENTER flex-row gap-4 text-sm'>
                     <Image alt='' src="/assets/logo.svg" width={30} height={30} />
                     <NavList />

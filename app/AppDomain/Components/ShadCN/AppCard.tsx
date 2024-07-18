@@ -30,7 +30,7 @@ export function AppCard({EventName,description, PosterUrl, date, time }:{EventNa
        <Image width={300} height={100} className="w-full h-[150px] rounded-sm  " alt=""  src={PosterUrl}/>
       </CardContent>
 
-    <div className=" FORMTEXT CENTER justify-between w-full px-8 mb-3"> 
+    <div className=" FORMTEXT CENTER !justify-between w-full px-8 mb-3"> 
 
     <p className=" font-bold">{date}</p>  <p className=" text-ApppTertiary">{time}</p>
     </div>

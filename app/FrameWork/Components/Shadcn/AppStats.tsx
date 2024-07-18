@@ -24,7 +24,7 @@ export function AppStats({className,title, description, icon}:{className?:string
   return (
     <Card className="w-[250px]">
       <CardHeader>
-       <div className=" CENTER justify-between w-full ">
+       <div className=" CENTER !justify-between w-full ">
 
       
        <CardTitle className={className}>{title} </CardTitle>
@@ -33,7 +33,7 @@ export function AppStats({className,title, description, icon}:{className?:string
 
        </div>
 
-       <div className=" group CENTER justify-between w-full    hover:cursor-pointer">
+       <div className=" group CENTER !justify-between w-full    hover:cursor-pointer">
        <CardDescription className=" group-hover:text-AppPrimary">{description}</CardDescription>
        <ArrowRight  className=" group-hover:text-AppPrimary"/>
 
