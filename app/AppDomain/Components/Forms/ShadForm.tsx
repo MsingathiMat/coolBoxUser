@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import FormLabelWrapper from "@/app/FrameWork/Components/WebContainers/FormLabelWrapper";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -39,43 +39,52 @@ import { useInnter } from "@/app/FrameWork/Api/useInnter";
 import { Progress } from "@/components/ui/progress";
 import SubmitButton from "@/app/FrameWork/Components/WebContainers/SubmitButton";
 import { Toast } from "@/components/ui/toast";
+import { eventType } from "../../Types/Types";
+import { eventSchema } from "../../Schemas/zodSchemas";
+import { AddEvent } from "../../Api/ReactQuery/Mutations";
 
-const formSchema = z.object({
-  eventName: z.string().min(1, "Required"),
-  description: z.string().min(1, "Required"),
 
-  date: z.date({ required_error: "Required" }),
-  venue: z.string().min(1, "Required"),
-  time: z.string().min(1, "Required"),
-  userId: z.number(),
-  eventType: z.string().min(1, "Required"),
-  poster: z.instanceof(FileList).refine((files) => files.length > 0, {
-    message: "Required",
-  }),
-});
+
+const FormReset={
+  eventName: "",
+  description: "",
+  eventType: "",
+
+  time: "",
+  userId: -1,
+  poster: undefined,
+  venue: "",
+}
 
 export function ShadForm() {
-  const { upload } = useInnter();
+
+
+  const AddAndUpload = AddEvent("Admin")
 
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      eventName: "",
-      description: "",
-      eventType: "",
-
-      time: "",
-      userId: -1,
-      poster: undefined,
-    },
+  const form = useForm<eventType>({
+    resolver: zodResolver(eventSchema),
+    defaultValues:  FormReset
   });
 
-  type FormType = z.infer<typeof formSchema>;
+  type FormType = eventType;
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true);
+
+
+
+
+  useEffect(() => {
+    if (AddAndUpload.isSuccess) {
+      form.reset(FormReset);
+      toast({
+        title: "Record Added",
+        description: "Saved Successfully",
+      });
+    }
+  }, [AddAndUpload.isSuccess]);
+  function onSubmit(data: FormType) {
+   
     const formData = new FormData();
     const nextId = 2;
 
@@ -93,34 +102,10 @@ export function ShadForm() {
 
       formData.append("date", format(data.date, "PPP").toString());
 
-      upload(
-        "https://api.codeddesign.org.za/7uploaddata",
-        formData,
-        setProgress
-      )
-        .then((resp) => {
-          console.log(resp);
-          setIsLoading(false);
-          form.reset({
-            eventName: "",
-            description: "",
-            eventType: "",
+      
+    AddAndUpload.mutate({endPoint:"https://api.codeddesign.org.za/uploaddata",formData:formData,reset:form.reset, progressPercentage:setProgress})
+      
 
-            time: "",
-            userId: -1,
-            poster: undefined,
-            venue: "",
-          });
-
-          toast({
-            title: "Record Added",
-            description: "Saved Successfully",
-          });
-        })
-        .catch((rs) => {
-          console.log(rs);
-          setIsLoading(false);
-        });
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -129,6 +114,7 @@ export function ShadForm() {
 
   form.setValue("userId", 2);
 
+ 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -336,7 +322,7 @@ export function ShadForm() {
           </div>
         </div>
         <div className=" w-full CENTER h-[90px] bg-slate-200">
-          <SubmitButton isLoading={isLoading}>Save</SubmitButton>
+          <SubmitButton isLoading={AddAndUpload.isPending}>Save</SubmitButton>
         </div>
       </form>
     </Form>

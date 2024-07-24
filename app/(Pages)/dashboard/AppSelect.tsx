@@ -13,7 +13,6 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 // Create the provider component
 const AppSelect = ({ children,value, setValue }:{children:React.ReactNode, setValue:React.Dispatch<React.SetStateAction<string>>,value:string}) => {
  
-
   return (
     <AppContext.Provider value={{ value, setValue }}>
       

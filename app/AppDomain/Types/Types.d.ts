@@ -1,11 +1,11 @@
 import { QueryFunctions, UserRole } from "../AppDeclarations/Constants"
-import { userSchema } from "../Schemas/zodSchemas"
+import { eventSchema, userSchema } from "../Schemas/zodSchemas"
 
 
 //BB table types
 
 type UserType = Zod.infer<typeof userSchema>
-
+type eventType = Zod.infer<typeof eventSchema>
 type ApiQueryResponse={
     success:boolean,
     data:string
@@ -26,17 +26,17 @@ type ApiQueryResponse={
     imageUrl: string;
 }>
 
-type eventsType ={
-  eventName: string;
-  description: string;
-  date: string;
-  venue: string;
-  time: string;
-  userId: number;
-  eventType: string;
-  posterUrl: string;
+// type eventsType ={
+//   eventName: string;
+//   description: string;
+//   date: string;
+//   venue: string;
+//   time: string;
+//   userId: number;
+//   eventType: string;
+//   posterUrl: string;
   
-}
+// }
 
 type ResetType<T> = UseFormReset<T>
 

@@ -17,7 +17,7 @@ import { Heart, ThumbsUp } from "lucide-react"
 
 export function AppCard({EventName,description, PosterUrl, date, time }:{EventName:string,description:string, PosterUrl:string, date:string, time:string }) {
  
-  console.log( date)
+
  
   return (
   <div className=" relative">

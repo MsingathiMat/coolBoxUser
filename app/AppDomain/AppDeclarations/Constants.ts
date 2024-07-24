@@ -14,6 +14,7 @@
   GetStats = "GetStats",
   AddUser = "AddUser",
   GetUserByEmail = "GetUserByEmail",
+  AddEvent="AddEvent"
 }
 
 export type FunctionRegistryType = {
@@ -21,7 +22,7 @@ export type FunctionRegistryType = {
 };
 
  const FunctionRegistry: FunctionRegistryType = {
-  [UserRole.Admin]: ["AddUser", "GetUserByEmail"],
+  [UserRole.Admin]: ["AddUser", "GetUserByEmail","AddEvent"],
   [UserRole.Owner]: ["AddUser", "GetUserByEmail"],
   [UserRole.User]: ["AddUser", "GetUserByEmail"],
   [UserRole.SuperUser]: ["AddUser", "GetUserByEmail"],
